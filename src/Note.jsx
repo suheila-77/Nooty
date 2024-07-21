@@ -9,7 +9,10 @@ const Note = () => {
 
   useEffect(()=>{
     const allNotes = JSON.parse(localStorage.getItem("data"));
-    setData(allNotes)
+    if(allNotes){
+
+      setData(allNotes)
+    }
 
     // console.log(data)
   })
@@ -38,7 +41,7 @@ const Note = () => {
         
         {
         
-          data.map((note) => {
+        data.length > 0 ?  data.map((note) => {
             return (
               <div id='box' className=' w-[300px] ml-10 sm:w-full rounded h-[200px] border-2 mt-5  border-black'>
                 <h1 className='text-2xl '>{note.title}</h1>
@@ -51,7 +54,8 @@ const Note = () => {
             );
           })
 
-        
+        :
+        <p>there is no notes yet</p>
         }
       </div>
       <Toaster/>
