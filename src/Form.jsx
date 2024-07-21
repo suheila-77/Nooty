@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { jsx } from 'react/jsx-runtime';
+import{toast, Toaster} from "react-hot-toast"
 
 const Form = ({ isClose, handle }) => {
   const [close, setClose] = useState(false);
@@ -15,7 +17,31 @@ const Form = ({ isClose, handle }) => {
     setTimeout(()=>{
         setError(false)
     },2000)
+    
    }
+   toast.success("note has been added sucessfully",{
+    position: "top-right"
+  })
+
+   const newNote ={
+    id: Date.now(),
+    title: title,
+    description: description
+
+   }
+   
+//    const existingNote =[]
+//    const notes=[...existingNote, newNote]
+// //    existingNote.push(newNote)
+//    localStorage.setItem("data", JSON.stringify(notes))
+
+const getData = localStorage.getItem("data")
+let checkData = getData ? JSON.parse(getData) : []
+checkData = [...checkData, newNote]
+
+localStorage.setItem("data", JSON.stringify(checkData))
+
+
   };
 
   return (
@@ -49,6 +75,7 @@ const Form = ({ isClose, handle }) => {
          
         </form>
       </div>
+<Toaster/>
     </div>
   );
 };
